@@ -52,6 +52,6 @@ possible based upon prediction. For example, to get the cheapest gas price to ex
 Results always contain a JSON `result` key. If this is `error` read the error. If it's `success`, well, you'll have your value.
 
 
-### License
+## License
 
 GNU GPL v3.
