@@ -2,6 +2,21 @@
 
 Beginnings of an API wrapper around the [ethgasstation.info](https://ethgasstation.info) oracle. Caches the Oracle JSON in memory.
 
+## Installation
+
+To run:
+
+```
+npm install
+node app.js
+```
+
+Better deployment with `docker-compose` comes later.
+
+## Usage
+
+Really simple right now.
+
 ### GET /gas/:key
 
 Returns gas information from the oracle. Possible values for key:
