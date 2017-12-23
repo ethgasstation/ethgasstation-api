@@ -24,6 +24,13 @@ Returns gas information from the oracle. Possible values for key:
 Gives gas station data for the transaction price level set in `:gwei`. For example, to see what to expect at
 a gas price of 0.1 gwei, use `GET /priceData/gwei/0.1`.
 
+### GET /priceData/minutes/:minutes
+
+Gets the cheapest gas price to execute the transaction in a predicted amount of time in minutes. If your 
+transaction cannot happen as fast as you want, gets the cheapest gas price that will execute as quickly as
+possible based upon prediction. For example, to get the cheapest gas price to execute in 20 minutes, use
+`GET /priceData/minutes/20`.
+
 
 ### Results
 
