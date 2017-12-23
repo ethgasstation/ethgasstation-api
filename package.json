@@ -1,0 +1,31 @@
+{
+  "name": "eth-gas-json",
+  "version": "0.0.1",
+  "description": "An Express.js-based REST API for EthGasStation.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/10a7/eth-gas-json.git"
+  },
+  "keywords": [
+    "ethereum",
+    "ethgasstation"
+  ],
+  "author": "10a7",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/10a7/eth-gas-json/issues"
+  },
+  "homepage": "https://github.com/10a7/eth-gas-json#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "helmet": "^3.9.0",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2"
+  }
+}
