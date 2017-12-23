@@ -25,6 +25,6 @@ class GasApiController {
 
 module.exports = (route) => {
     var controller = new GasApiController();
-    route.get('/gasAPI/:key', controller.getKey);
+    route.get('/gas/:key', controller.getKey);
 }
   

@@ -4,7 +4,7 @@ const fs              = require('fs');
 const cluster         = require('cluster');
 
 if (cluster.isMaster) {
-    let processes = 1; // require('os').cpus().length;
+    let processes = require('os').cpus().length;
     console.log("Spawning " + processes + " worker processes...");
     for (let i = 0; i < processes; i += 1) {
         cluster.fork();
