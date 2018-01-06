@@ -1,8 +1,8 @@
-let HttpJsonCache = require('../lib/HttpJsonCache');
+let HttpJsonCache = require('../../lib/HttpJsonCache');
 
 class GasApiController {
-    
-    constructor() { 
+
+    constructor() {
     }
 
     getKey (req, res) {
@@ -18,13 +18,13 @@ class GasApiController {
             }
         })
         .catch((err) => {
-            res.status(503).json({ result: 'error', message: 'Cannot fetch from EthGasStation.' });            
+            res.status(503).json({ result: 'error', message: 'Cannot fetch from EthGasStation.' });
         });
-    } 
+    }
 }
 
 module.exports = (route) => {
     var controller = new GasApiController();
     route.get('/gas/:key', controller.getKey);
 }
-  
+

@@ -1,8 +1,8 @@
-let HttpJsonCache = require('../lib/HttpJsonCache');
+let HttpJsonCache = require('../../lib/HttpJsonCache');
 
 class PredictTableController {
-    
-    constructor() { 
+
+    constructor() {
 
     }
 
@@ -39,7 +39,7 @@ class PredictTableController {
             }
         })
         .catch((err) => {
-            res.status(503).json({ result: 'error', message: 'Cannot fetch from EthGasStation.' });            
+            res.status(503).json({ result: 'error', message: 'Cannot fetch from EthGasStation.' });
         });
     }
 
@@ -71,7 +71,7 @@ class PredictTableController {
                         candidates.push(data[i]);
                     }
                 }
-                
+
                 if (candidates.length) {
                     // Array.sort is O(n*log(n)) on n_max = 109
                     candidates = candidates.sort((a, b) => {
@@ -105,7 +105,7 @@ class PredictTableController {
         })
         .catch((err) => {
             console.log(err);
-            res.status(503).json({ result: 'error', message: 'Cannot fetch from EthGasStation.' });            
+            res.status(503).json({ result: 'error', message: 'Cannot fetch from EthGasStation.' });
         });
     }
 
@@ -116,4 +116,4 @@ module.exports = (route) => {
     route.get('/priceData/gwei/:gwei', controller.getDataForGasPrice);
     route.get('/priceData/minutes/:minutes', controller.getDataForGasMinutes);
 }
-  
+

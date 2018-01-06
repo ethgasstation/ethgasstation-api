@@ -5,6 +5,9 @@ const cluster         = require('cluster');
 
 if (cluster.isMaster) {
     let processes = require('os').cpus().length;
+    if (process.env.NODE_ENV === 'development') {
+        processes = 1;
+    }
     console.log("Spawning " + processes + " worker processes...");
     for (let i = 0; i < processes; i += 1) {
         cluster.fork();
@@ -21,11 +24,14 @@ if (cluster.isMaster) {
     app.use(helmet());
     app.use(bodyParser.json());
 
-    fs.readdirSync('./controllers').forEach((jsfile) => {
+    // v0/legacy routes
+    fs.readdirSync('./controllers/v0/').forEach((jsfile) => {
+        let router = express.Router();
         if (jsfile.substr(-3) === '.js') {
-            let controller = require('./controllers/' + jsfile);
-            controller(app);
+            let controller = require('./controllers/v0/' + jsfile);
+            controller(router);
         }
+        app.use('/v0', router);
     });
 
     app.get('/', (req, res) => {
