@@ -57,4 +57,7 @@ typings/
 # dotenv environment variables file
 .env
 
-
+# TLS keys
+conf/ssl.crt
+conf/ssl.key
+conf/privkey.pem
