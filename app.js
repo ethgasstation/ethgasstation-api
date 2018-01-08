@@ -32,7 +32,8 @@ if (cluster.isMaster) {
 
     // v0/legacy routes
     // XXX abstract
-    fs.readdirSync('./controllers/v0/').forEach((jsfile) => {
+    let v0_controllers_path = path.join(__dirname, 'controllers', 'v0');
+    fs.readdirSync(v0_controllers_path).forEach((jsfile) => {
         let router = express.Router();
         if (jsfile.substr(-3) === '.js') {
             let controller = require('./controllers/v0/' + jsfile);

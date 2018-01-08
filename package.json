@@ -1,5 +1,5 @@
 {
-  "name": "eth-gas-json",
+  "name": "ethgasstation-frontend",
   "version": "0.0.1",
   "description": "An Express.js-based REST API for EthGasStation.",
   "main": "app.js",
