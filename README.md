@@ -8,6 +8,9 @@ gas station code; `/v1/` and later will conform more to REST-style
 specifications. It should be assumed that running code on `/v0/` will likely
 break on official endpoints in the future.
 
+This API is unstable and in active development. It is not officially
+supported at this time.
+
 ## Installation
 
 To run:
@@ -17,7 +20,16 @@ npm install
 node app.js
 ```
 
-Better deployment with `docker-compose` comes later.
+A Dockerfile is included for deployment as well. To run the Docker image:
+
+```
+docker build -t ethgasstation-api .
+docker run -p 8080:8080 ethgasstation-api
+```
+
+This will expose and forward port 8080 from the image. Note that the docker
+image runs in production mode by default.
+
 
 ## Usage
 
