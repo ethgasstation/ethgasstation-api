@@ -19,6 +19,7 @@ COPY lib/ /opt/ethgasstation/api/lib
 COPY app.js /opt/ethgasstation/api/app.js
 COPY package.json /opt/ethgasstation/api/package.json
 COPY package-lock.json /opt/ethgasstation/api/package-lock.json
+COPY conf/ /opt/ethgastation/api/conf
 COPY settings.docker.conf /etc/ethgasstation.conf
 
 RUN cd /opt/ethgasstation/api && npm install
