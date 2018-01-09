@@ -43,6 +43,7 @@ if (cluster.isMaster) {
     try {
         let redisProtocol = settings.getSetting('redis', 'protocol');
         if (settings.getSetting('redis', 'protocol') === 'redis') {
+            // XXX abstract to helper
             let connString = 'redis://';
             try {
                 let password = settings.getSetting('password');
