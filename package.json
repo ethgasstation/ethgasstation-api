@@ -4,7 +4,7 @@
   "description": "An Express.js-based REST API for EthGasStation.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/jasmine"
   },
   "repository": {
     "type": "git",

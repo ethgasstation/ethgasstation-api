@@ -90,7 +90,12 @@ if (cluster.isMaster) {
             delayMs: 0
         });
     }
-    app.use(APIRateLimiter);
+    // add benchmarking exception
+    if (process.env.NO_RATE_LIMIT) {
+        console.warn("EXPLICIT SECURITY BYPASS: Rate limiting security disabled");
+    } else {
+        app.use(APIRateLimiter);
+    }
 
     // v0/legacy routes
     // XXX abstract
