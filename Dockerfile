@@ -13,6 +13,7 @@ RUN curl -sL https://deb.nodesource.com/setup_9.x | bash -
 RUN apt-get install -y nodejs
 
 RUN mkdir -p /opt/ethgasstation/api
+
 COPY controllers/ /opt/ethgasstation/api/controllers
 COPY lib/ /opt/ethgasstation/api/lib
 COPY app.js /opt/ethgasstation/api/app.js
