@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const fs              = require('fs');
+const glob            = require('glob');
 const cluster         = require('cluster');
 const redis           = require('redis');
 
@@ -40,17 +41,27 @@ if (cluster.isMaster) {
         app.use(limiter);
     }
 
-    // v0/legacy routes
-    // XXX abstract
-    let v0_controllers_path = path.join(__dirname, 'controllers', 'v0');
-    fs.readdirSync(v0_controllers_path).forEach((jsfile) => {
-        let router = express.Router();
-        if (jsfile.substr(-3) === '.js') {
-            let controller = require('./controllers/v0/' + jsfile);
-            controller(router);
-        }
-        app.use('/v0', router);
+
+    let controller_path = path.join(__dirname, 'controllers');
+    let folders = glob.sync(path.join(controller_path, '**/'));
+    folders = folders.slice(1,);
+    folders.forEach((version_folder) => {
+        let split = version_folder.split(path.sep);
+        let version = split[split.length - 2];
+        console.info("Loading controllers for API version " + version + "...");
+        fs.readdirSync(version_folder).forEach((jsfile) => {
+            let router = express.Router();
+            if (jsfile.substr(-3) === '.js') {
+                let controller_path = path.join(version_folder, jsfile);
+                console.info("   > " + path.basename(controller_path));
+                let controller = require(controller_path);
+                controller(router);
+            }
+            app.use('/' + version, router);
+        });
     });
+    console.info("Controllers loaded.\n");
+
 
     app.get('/', (req, res) => {
         res.json({
