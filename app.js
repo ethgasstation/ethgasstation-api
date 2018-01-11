@@ -80,7 +80,7 @@ if (cluster.isMaster) {
             max: 120,
             windowMs: 60000,
             delayMs: 0
-        });
+        };
     }
     catch (e) {
         console.warn("Bad Redis config or Redis not available. Disabling Redis-backed rate limiting.");
