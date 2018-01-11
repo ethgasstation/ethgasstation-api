@@ -9,7 +9,7 @@ var SERVER_PID = null;
 describe("Rate limiting tests", () => {
 
     // set up rate limiting variables
-    // allow +/- TEST_MARGIN_OF_ERROR before/after rate limiting to pass
+    // allow positive TEST_MARGIN_OF_ERROR before/after rate limiting to pass
     const TEST_MARGIN_OF_ERROR = 0.25;
 
     let requestWindow = settings.getSetting('api', 'rate_limit_request_window_seconds') * 1000;
