@@ -38,6 +38,9 @@ if (cluster.isMaster) {
         settings.getSetting('api', 'rate_limit_disable') === true) {
         console.warn("EXPLICIT SECURITY BYPASS: Rate limiting security disabled");
     } else {
+        if (settings.getSetting('api', 'rate_limit_reverse_proxy') === true) {
+            app.enable('trust proxy');
+        }
         app.use(limiter);
     }
 
