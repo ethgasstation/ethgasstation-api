@@ -25,15 +25,17 @@ if (cluster.isMaster) {
     // preload INI into RAM on bootstrap/fork, everything needs it
     // and we want to avoid synchronous processes in the request pipeline
     const settings        = require('./lib/EGSSettings');
-    const limiter         = require('./lib/RateLimiter.js');
     settings.loadSettings();
+
+    const limiter         = require('./lib/RateLimiter.js');
 
     app.set('port', process.env.PORT || 8080);
     app.use(helmet());
     app.use(bodyParser.json());
 
     // configure rate limiting
-    if (process.env.NO_RATE_LIMIT) {
+    if (process.env.NO_RATE_LIMIT ||
+        settings.getSetting('api', 'rate_limit_disable') === true) {
         console.warn("EXPLICIT SECURITY BYPASS: Rate limiting security disabled");
     } else {
         app.use(limiter);
