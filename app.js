@@ -87,7 +87,9 @@ if (cluster.isMaster) {
         APIRateLimiter = new limiter({
             max: 120,
             windowMs: 60000,
-            delayMs: 0
+            delayMs: 0,
+            statusCode: 429,
+            onLimitReached: function() { console.log('reached limit'); }
         });
     }
     // add benchmarking exception
@@ -110,6 +112,7 @@ if (cluster.isMaster) {
     });
 
     app.get('/', (req, res) => {
+        console.log('hit heartbeat');
         res.json({
             result: 'success'
         });
