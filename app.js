@@ -27,6 +27,7 @@ if (cluster.isMaster) {
     const settings        = require('./lib/EGSSettings');
     settings.loadSettings();
 
+    // we also need a rate limiter
     const limiter         = require('./lib/RateLimiter.js');
 
     app.set('port', process.env.PORT || 8080);
