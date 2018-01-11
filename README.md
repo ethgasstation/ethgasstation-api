@@ -30,6 +30,20 @@ docker run -p 8080:8080 ethgasstation-api
 This will expose and forward port 8080 from the image. Note that the docker
 image runs in production mode by default.
 
+## Configuration
+
+The primary way to configure the API is with the *settings.conf* file. You may see
+the default settings file at *settings.docker.conf*, which is used by the
+docker pipeline.
+
+Specific options may also be overridden by environment variables. These are:
+
+* `PORT`: The port the server runs on (default 8080)
+* `WORKER_PROCESSES`: Number of worker processes to spawn
+* `SETTINGS_FILE`: Path to a settings.conf file
+* `NODE_ENV`: The Node environment variable
+* `NO_RATE_LIMIT`: Disables rate limiting if set
+
 
 ## Usage
 
