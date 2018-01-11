@@ -25,10 +25,8 @@ if (cluster.isMaster) {
     // preload INI into RAM on bootstrap/fork, everything needs it
     // and we want to avoid synchronous processes in the request pipeline
     const settings        = require('./lib/EGSSettings');
-    settings.loadSettings();
+    const limiter         = require('./lib/RateLimiter');
 
-    // we also need a rate limiter
-    const limiter         = require('./lib/RateLimiter.js');
 
     app.set('port', process.env.PORT || 8080);
     app.use(helmet());
@@ -56,7 +54,8 @@ if (cluster.isMaster) {
 
     app.get('/', (req, res) => {
         res.json({
-            result: 'success'
+            result: 'success',
+            message: 'EthGasStation API OK'
         });
     })
 
