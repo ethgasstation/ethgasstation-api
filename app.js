@@ -40,6 +40,7 @@ if (cluster.isMaster) {
     let redisClient = null;
     let redisDisabled = true;
     let APIRateLimiter = null;
+    let limiterOptions = {};
     try {
         let redisProtocol = settings.getSetting('redis', 'protocol');
         if (settings.getSetting('redis', 'protocol') === 'redis') {
@@ -72,7 +73,7 @@ if (cluster.isMaster) {
         } else {
             throw new Error("Bad Redis protocol.");
         }
-        APIRateLimiter = new limiter({
+        limiterOptions = {
             store: new limiterRedisStore({
                 client: redisClient
             }),
@@ -83,20 +84,17 @@ if (cluster.isMaster) {
     }
     catch (e) {
         console.warn("Bad Redis config or Redis not available. Disabling Redis-backed rate limiting.");
-        console.warn(e);
-        APIRateLimiter = new limiter({
+        limiterOptions = {
             max: 120,
             windowMs: 60000,
-            delayMs: 0,
-            statusCode: 429,
-            onLimitReached: function() { console.log('reached limit'); }
-        });
+            delayMs: 0
+        };
     }
     // add benchmarking exception
     if (process.env.NO_RATE_LIMIT) {
         console.warn("EXPLICIT SECURITY BYPASS: Rate limiting security disabled");
     } else {
-        app.use(APIRateLimiter);
+        app.use(new limiter(limiterOptions));
     }
 
     // v0/legacy routes
