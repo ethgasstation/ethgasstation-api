@@ -3,18 +3,17 @@ const request  = require('request');
 const childproc = require('child_process');
 
 require('dotenv').config();
+settings.loadSettings();
 var SERVER_PID = null;
 
 describe("Rate limiting tests", () => {
-
-    settings.loadSettings();
 
     // set up rate limiting variables
     // allow +/- TEST_MARGIN_OF_ERROR before/after rate limiting to pass
     const TEST_MARGIN_OF_ERROR = 0.25;
 
-    let requestWindow = 60000;
-    let requestLimitInWindow = 120;
+    let requestWindow = settings.getSetting('api', 'rate_limit_request_window_seconds') * 1000;
+    let requestLimitInWindow = settings.getSetting('api', 'rate_limit_max_requests');
     let processes = require('os').cpus().length;
     if (process.env.WORKER_PROCESSES) {
         processes = parseInt(process.env.WORKER_PROCESSES);
