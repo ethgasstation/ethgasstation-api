@@ -5,6 +5,8 @@ const glob            = require('glob');
 const cluster         = require('cluster');
 const redis           = require('redis');
 
+process.env.EGS_APP_ROOT = __dirname;
+
 if (cluster.isMaster) {
     let processes = require('os').cpus().length;
     if (process.env.WORKER_PROCESSES) {
