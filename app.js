@@ -40,7 +40,7 @@ if (cluster.isMaster) {
         settings.getSetting('api', 'rate_limit_disable') === true) {
         console.warn("EXPLICIT SECURITY BYPASS: Rate limiting security disabled");
     } else {
-        if (settings.getSetting('api', 'rate_limit_reverse_proxy') === true) {
+        if (settings.getSetting('api', 'behind_reverse_proxy') === true) {
             app.enable('trust proxy');
         }
         app.use(limiter);
@@ -53,6 +53,9 @@ if (cluster.isMaster) {
     folders.forEach((version_folder) => {
         let split = version_folder.split(path.sep);
         let version = split[split.length - 2];
+        if (version === 'base') {
+            return;
+        }
         console.info("Loading controllers for API version " + version + "...");
         fs.readdirSync(version_folder).forEach((jsfile) => {
             let router = express.Router();

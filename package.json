@@ -34,5 +34,7 @@
     "request": "^2.83.0",
     "request-promise": "^4.2.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "nodemon": "^1.14.12"
+  }
 }

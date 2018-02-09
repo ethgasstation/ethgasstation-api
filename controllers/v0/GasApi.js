@@ -2,12 +2,9 @@ let HttpJsonCache = require('../../lib/HttpJsonCache');
 
 class GasApiController {
 
-    constructor() {
-    }
-
     getKey (req, res) {
         let data = {};
-        new HttpJsonCache().getJSON('https://ethgasstation.info/json/ethgasAPI.json')
+        new HttpJsonCache().getJSON('https://localhost/json/ethgasAPI.json')
         .then((data) => {
             if (req.params.key in data) {
                 let ret = { result: 'success' }

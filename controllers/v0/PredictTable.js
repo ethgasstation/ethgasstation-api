@@ -2,10 +2,6 @@ let HttpJsonCache = require('../../lib/HttpJsonCache');
 
 class PredictTableController {
 
-    constructor() {
-
-    }
-
     getDataForGasPrice (req, res) {
         let gwei = parseFloat(req.params.gwei);
         if (isNaN(gwei) || gwei <= 0) {
@@ -50,7 +46,7 @@ class PredictTableController {
         }
 
         let data = {};
-        new HttpJsonCache().getJSON('https://ethgasstation.info/json/predictTable.json')
+        new HttpJsonCache().getJSON('https://localhost/json/predictTable.json')
         .then((data) => {
             if (data.length) {
                 let target = minutes;
