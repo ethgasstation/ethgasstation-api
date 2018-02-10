@@ -9,7 +9,7 @@ class PredictTableController {
         }
 
         let data = {};
-        new HttpJsonCache().getJSON('https://ethgasstation.info/json/predictTable.json')
+        new HttpJsonCache().getJSON('https://localhost/json/predictTable.json')
         .then((data) => {
             if (data.length) {
                 let prevPrice = 0;
@@ -42,7 +42,7 @@ class PredictTableController {
     getDataForGasMinutes (req, res) {
         let minutes = parseFloat(req.params.minutes);
         if (isNaN(minutes) || minutes <= 0) {
-            res.status(400).json({ result: 'error', message: 'Bad gwei value.' });
+            res.status(400).json({ result: 'error', message: 'Bad minute value.' });
         }
 
         let data = {};

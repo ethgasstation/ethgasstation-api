@@ -78,6 +78,14 @@ if (cluster.isMaster) {
         });
     })
 
+    // default 404 handler
+    app.use((req, res, next) => {
+        res.status(404).json({
+            'success': false,
+            'message': 'The requested endpoint does not exist.'
+        });
+    });
+
     http.createServer(app).listen(app.get('port'), () => {
         console.log('Express worker process ' + cluster.worker.id + ' listening on ' + app.get('port'));
     });

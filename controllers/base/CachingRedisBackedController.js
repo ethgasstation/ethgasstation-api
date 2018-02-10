@@ -12,40 +12,40 @@ class CachingRedisBackedController {
         this.cachedObjects = {};
     }
 
-    _getData (redisKey, keyMapping, keyMapName, req, res) {
-        let redis = this._getRedisClient();
-        if (redis === false) {
+    _sendData (redisKey, keyMapping, keyMapName, req, res) {
+        try {
+            this._getMappedData(redisKey, keyMapping, keyMapName, 
+                (result) => {
+                    res.json(result);
+                });
+
+        }
+        catch (e) {
+            console.error(e);
             res.status(500).json({
                 'success': false,
-                'msg': 'Could not connect to database.'
-            });
-        } else {
-            try {
-                this._getCachedData(redis, redisKey,
-                    (cacheData) => {
-                        let results = JSON.parse(cacheData.data);
-                        if (!Array.isArray(results)) {
-                            results = new Array(results);
-                        }
-                        let resultMap = results.map((result) => {
-                            return this.JSONMapper.mapKeys(keyMapping, result)
-                        });
-                        let ret = { 'success': true };
-                        ret[keyMapName] = resultMap;
-                        res.json(ret);
-                    });
-            }
-            catch (e) {
-                console.error(e);
-                res.status(500).json({
-                    'success': false,
-                    'msg': 'Could not parse JSON returned from database'
-                })
-            }
+                'msg': 'Could not parse JSON returned from database'
+            })
         }
     }
 
-    _getCachedData (redisClient, redisKey, cb) {
+    _getMappedData (redisKey, keyMapping, keyMapName, cb) {
+        this._getCachedData(redisKey,
+            (cacheData) => {
+                let results = JSON.parse(cacheData.data);
+                if (!Array.isArray(results)) {
+                    results = new Array(results);
+                }
+                let resultMap = results.map((result) => {
+                    return this.JSONMapper.mapKeys(keyMapping, result)
+                });
+                let ret = { 'success': true };
+                ret[keyMapName] = resultMap;
+                cb(ret);
+            });
+    }
+
+    _getCachedData (redisKey, cb) {
         let cachehit = false;
         if (this.cachedObjects && this.cachedObjects[redisKey]) {
             let now = new Date().getTime();
@@ -58,6 +58,10 @@ class CachingRedisBackedController {
         }
         if (cachehit === false) {
             let self = this;
+            let redisClient = this._getRedisClient();
+            if (redisClient === false) {
+                throw new Error("Cannot connect to Redis");
+            }
             redisClient.get(redisKey, (err, result) => {
                 if (err) {
                     // problems.

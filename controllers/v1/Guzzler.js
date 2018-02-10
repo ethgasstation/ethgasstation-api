@@ -2,12 +2,8 @@ let CachingRedisBackedController = require('../base/CachingRedisBackedController
 
 class GuzzlerController extends CachingRedisBackedController {
 
-    constructor () {
-        super();
-    }
-
     getGuzzlers (req, res) {
-        this._getData(
+        this._sendData(
             '_gasguzz',
             [
                 ['to_address', 'to_address'],
