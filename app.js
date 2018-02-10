@@ -75,7 +75,7 @@ if (cluster.isMaster) {
 
     app.get('/', (req, res) => {
         res.json({
-            result: 'success',
+            success: true,
             message: 'EthGasStation API OK'
         });
     })
