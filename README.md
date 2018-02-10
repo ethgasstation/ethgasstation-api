@@ -5,7 +5,7 @@ This API is an Express-based middleware layer for the [ethgasstation
 oracle](https://github.com/ethgasstation/ethgasstation-adaptive-oracle).
 
 You can view 10a7's working copy tracking master/unstable at
-[gasstation.etheria.io](https://gasstation.etheria.io/api/v1/). **Do not rely
+[gasstation.etheria.io](https://gasstation.etheria.io/api/). **Do not rely
 on this endpoint for production usage, as it _will_ break.** For the stable
 and canonical ETH Gas Station implementation, always visit
 [ethgasstation.info](https://ethgasstation.info/).
