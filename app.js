@@ -35,6 +35,7 @@ if (cluster.isMaster) {
     app.set('port', process.env.PORT || 8080);
     // disable helmet, as these are being set upstream
     // app.use(helmet());
+    app.disable('x-powered-by');
     app.use(cors());
     app.use(bodyParser.json());
 
