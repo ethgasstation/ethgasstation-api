@@ -1,5 +1,4 @@
 # ethgasstation-api Dockerfile
-
 FROM ubuntu:xenial
 
 ENV NODE_ENV production
