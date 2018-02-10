@@ -20,6 +20,7 @@ if (cluster.isMaster) {
 } else {
     const express         = require('express');
     const bodyParser      = require('body-parser');
+    const cors            = require('cors');
     const http            = require('http');
     const path            = require('path');
     const app             = express();
@@ -33,6 +34,7 @@ if (cluster.isMaster) {
 
     app.set('port', process.env.PORT || 8080);
     app.use(helmet());
+    app.use(cors());
     app.use(bodyParser.json());
 
     // configure rate limiting
