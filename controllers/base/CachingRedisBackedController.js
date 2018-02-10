@@ -33,13 +33,18 @@ class CachingRedisBackedController {
         this._getCachedData(redisKey,
             (cacheData) => {
                 let results = JSON.parse(cacheData.data);
+                let forceArrayed = false;
                 if (!Array.isArray(results)) {
+                    forceArrayed = true;
                     results = new Array(results);
                 }
                 let resultMap = results.map((result) => {
                     return this.JSONMapper.mapKeys(keyMapping, result)
                 });
                 let ret = { 'success': true };
+                if (forceArrayed) {
+                    resultMap = resultMap[0];
+                }
                 ret[keyMapName] = resultMap;
                 cb(ret);
             });
