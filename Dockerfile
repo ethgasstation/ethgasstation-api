@@ -1,5 +1,5 @@
 # ethgasstation-api Dockerfile
-FROM ubuntu:xenial
+FROM ubuntu:bionic
 
 ENV NODE_ENV production
 ENV PORT 8080
@@ -8,7 +8,8 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update
 RUN apt-get upgrade -y
 RUN apt-get install -y curl
-RUN curl -sL https://deb.nodesource.com/setup_9.x | bash -
+
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 RUN apt-get install -y nodejs
 
 RUN mkdir -p /opt/ethgasstation/api

@@ -27,6 +27,14 @@ docker build -t ethgasstation-api .
 docker run -p 8080:8080 ethgasstation-api
 ```
 
+A compose.yml is included for deployment as well. To run the Docker compose 
+with MariaDB, redis and ethgas station API. **(you need to have ethgasstation_backend running and eth-node)**:
+
+```
+docker-compose -f compose.yml build
+docker-compose -f compose.yml up
+```
+
 This will expose and forward port 8080 from the image. Note that the docker
 image runs in production mode by default.
 
